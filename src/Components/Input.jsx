@@ -6,9 +6,17 @@ export default function Input({ label, newProject, setNewProject, textarea }) {
       <label>{label === "duedate" ? "DUE DATE" : label.toUpperCase()}</label>
       {textarea ? (
         <textarea
-          type="text"
-          name="description"
-          id="description"
+          value={newProject[label]}
+          onChange={(event) =>
+            setNewProject((prev) => ({
+              ...prev,
+              [label]: event.target.value,
+            }))
+          }
+          required
+          type={label === "duedate" ? "date" : "text"}
+          name={label}
+          id={label}
           className={classes}
         />
       ) : (

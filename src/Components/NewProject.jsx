@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Input from "./Input";
+import Modal from "./Modal";
 
 export default function NewProject({ setProjectsState }) {
   const [newProject, setNewProject] = useState({
@@ -8,17 +9,27 @@ export default function NewProject({ setProjectsState }) {
     duedate: "",
     tasks: [],
   });
+  const dialog = useRef();
 
   // const title = useRef();
   // const description = useRef();
   // const duedate = useRef();
 
   function addNewProject() {
-    if (newProject.title === "") alert("title is erquired");
-    else if (newProject.duedate === "") alert("date is required");
-    else {
+    if (
+      newProject.title.trim() === "" ||
+      newProject.duedate.trim() === "" ||
+      newProject.description.trim() === ""
+    ) {
+      console.log(
+        newProject.title.trim(),
+        newProject.duedate.trim(),
+        newProject.description.trim(),
+      );
+      dialog.current.showModal();
+    } else {
       setProjectsState((prev) => ({
-        selectedProjectId: prev.projects.length,
+        selectedProjectId: undefined,
         projects: [
           ...prev.projects,
           {
@@ -38,6 +49,15 @@ export default function NewProject({ setProjectsState }) {
   }
   return (
     <section className="ms-58 me-8 sm:ms-68 my-12 max-w-3xl">
+      <Modal dialog={dialog} btnCaption="Okay">
+        <h2 className="sm:text-lg text-stone-700 font-bold">Invalid Inputs</h2>
+        <p className="text-stone-600 my-1">
+          looks like you forgot to enter a value!
+        </p>
+        <p className="text-stone-600 my-1">
+          make sure you provide a valid value for every input field!
+        </p>
+      </Modal>
       <div className="flex flex-col gap-4 pt-15">
         <menu className="flex justify-end gap-4">
           <button

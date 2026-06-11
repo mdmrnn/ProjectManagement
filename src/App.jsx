@@ -35,7 +35,7 @@ function App() {
   return (
     <main>
       <Overview
-        projects={projectsState.projects}
+        projectsState={projectsState}
         setProjectsState={setProjectsState}
       />
       {content}
