@@ -62,7 +62,10 @@ export default function NewTask({ id, setProjects, setView, projects }) {
             <h2 className="font-bold text-xl text-stone-900">
               {projects[projectIndex].title}
             </h2>
-            <button className="cursor-pointer" onClick={deleteProject}>
+            <button
+              className="cursor-pointer hover:text-red-500 transition-color duration-300"
+              onClick={deleteProject}
+            >
               DELETE
             </button>
           </div>
@@ -88,14 +91,19 @@ export default function NewTask({ id, setProjects, setView, projects }) {
             <p>There is no task for this project</p>
           )}
           {projects[projectIndex].tasks.length !== 0 && (
-            <ul className="py-4 bg-stone-200 w-full px-4">
+            <ul className="py-4 bg-stone-100 w-full px-4">
               {projects[projectIndex].tasks.map((task, index) => (
                 <li
                   key={index}
-                  className="py-1 cursor-pointer animate-slide-in"
-                  onClick={() => deleteTask(index)}
+                  className="py-1 animate-slide-in flex justify-between items-center"
                 >
-                  {task}
+                  <span>{task}</span>
+                  <button
+                    className="hover:text-red-500 cursor-pointer transition-color duration-300"
+                    onClick={() => deleteTask(index)}
+                  >
+                    Clear
+                  </button>
                 </li>
               ))}
             </ul>

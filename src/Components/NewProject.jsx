@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Input from "./Input";
 
 export default function NewProject({ setView, setProjects }) {
   const [newProject, setNewProject] = useState({
@@ -36,74 +37,37 @@ export default function NewProject({ setView, setProjects }) {
   return (
     <section className="ms-58 me-8 sm:ms-68 my-12 max-w-3xl">
       <div className="flex flex-col gap-4 pt-15">
-        <div className="flex justify-end gap-4">
+        <menu className="flex justify-end gap-4">
           <button
-            className=" text-stone-900 rounded-lg py-2 px-4 cursor-pointer"
+            className=" text-stone-800 hover:text-stone-950 rounded-lg py-2 px-4 cursor-pointer"
             onClick={() => setView("NoProjects")}
           >
             Cancel
           </button>
           <button
-            className="bg-stone-900 text-stone-50 rounded-lg py-2 px-4 cursor-pointer"
+            className="bg-stone-800 text-stone-50 hover:bg-stone-950 rounded-lg py-2 px-4 cursor-pointer"
             onClick={addNewProject}
           >
             Save
           </button>
-        </div>
+        </menu>
         <div className="flex flex-col gap-2">
-          <div className="">
-            <label>TITLE</label>
-            <input
-              // ref={title}
-              value={newProject.title}
-              onChange={(event) =>
-                setNewProject((prev) => ({
-                  ...prev,
-                  title: event.target.value,
-                }))
-              }
-              required
-              type="text"
-              name="title"
-              id="title"
-              className="w-full bg-stone-300 p-1 outline-none border-b-2 border-stone-50 focus:border-stone-700 transition-border duration-300"
-            />
-          </div>
-          <div>
-            <label>DESCRIPTION</label>
-            <textarea
-              // ref={description}
-              value={newProject.description}
-              onChange={(event) =>
-                setNewProject((prev) => ({
-                  ...prev,
-                  description: event.target.value,
-                }))
-              }
-              type="text"
-              name="title"
-              id="title"
-              className="w-full bg-stone-300 p-1 outline-none border-b-2 border-stone-50 focus:border-stone-700  transition-border duration-300"
-            />
-          </div>
-          <div>
-            <label>DUE DATE</label>
-            <input
-              required
-              // ref={duedate}
-              value={newProject.duedate}
-              onChange={(event) =>
-                setNewProject((prev) => ({
-                  ...prev,
-                  duedate: event.target.value,
-                }))
-              }
-              type="date"
-              name="title"
-              id="title"
-              className="w-full bg-stone-300 p-1 outline-none border-b-2 border-stone-50 focus:border-stone-700  transition-border duration-300"
-            />
-          </div>
+          <Input
+            label="title"
+            newProject={newProject}
+            setNewProject={setNewProject}
+          />
+          <Input
+            label="description"
+            newProject={newProject}
+            setNewProject={setNewProject}
+            textarea
+          />
+          <Input
+            label="duedate"
+            newProject={newProject}
+            setNewProject={setNewProject}
+          />
         </div>
       </div>
     </section>

@@ -1,16 +1,13 @@
+import Button from "./Button";
+
 export default function Overview({ projects, setView, goForTask }) {
   return (
-    <section className="bg-stone-900 w-50 sm:w-60 fixed top-12 rounded-tr-2xl h-screen">
-      <div className="flex flex-col items-start gap-9 mt-15 mx-4 sm:mx-8 ">
-        <h1 className="text-stone-50 font-bold text-lg sm:text-xl">
+    <aside className="bg-stone-900 w-1/3 md:w-64 fixed top-12 rounded-r-xl h-screen px-8 py-16 tex-stone-50">
+      <div className="flex flex-col items-start gap-9">
+        <h2 className="text-stone-200 font-bold text-lg sm:text-xl">
           YOUR PROJECTS
-        </h1>
-        <button
-          className="bg-stone-600 text-stone-400 rounded-lg px-4 py-2 text-sm sm:text-base cursor-pointer"
-          onClick={() => setView("NewProject")}
-        >
-          + Add Project
-        </button>
+        </h2>
+        <Button onClick={() => setView("NewProject")}>+ Add Project</Button>
         <ul className="w-full">
           {projects.map((project, index) => {
             return (
@@ -25,6 +22,6 @@ export default function Overview({ projects, setView, goForTask }) {
           })}
         </ul>
       </div>
-    </section>
+    </aside>
   );
 }

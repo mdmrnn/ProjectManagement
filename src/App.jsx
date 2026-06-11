@@ -24,7 +24,7 @@ function App() {
   }
 
   return (
-    <>
+    <main>
       <Overview setView={setView} projects={projects} goForTask={goForTask} />
       {view === "NoProjects" && (
         <NoProjects key="NoProjects" setView={setView} />
@@ -45,7 +45,7 @@ function App() {
           projects={projects}
         />
       )}
-    </>
+    </main>
   );
 }
 
