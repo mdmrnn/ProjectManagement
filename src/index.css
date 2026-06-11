@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+  @keyframes slide-in {
+    from {
+      transform: translateX(-10%);
+    }
+    to {
+      transform: translateX(0%);
+    }
+  }
+  --animate-slide-in: slide-in 0.3s ease-out;
+}
