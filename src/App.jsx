@@ -5,46 +5,40 @@ import NewProject from "./Components/NewProject";
 import NewTask from "./Components/NewTask";
 
 function App() {
-  const [projects, setProjects] = useState([
-    {
-      id: 0,
-      title: "Learn React",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      duedate: "2026-06-10",
-      tasks: ["Watch videos", "Practice"],
-    },
-  ]);
+  const [projectsState, setProjectsState] = useState({
+    selectedProjectId: undefined,
+    projects: [
+      {
+        id: 0,
+        title: "Learn React",
+        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        duedate: "2026-06-10",
+        tasks: ["Watch videos", "Practice"],
+      },
+    ],
+  });
 
-  const [view, setView] = useState("NoProjects");
-  const [activeId, setActiveId] = useState(0);
-
-  function goForTask(id) {
-    setActiveId(id);
-    setView("NewTask");
-  }
+  let content;
+  if (projectsState.selectedProjectId === undefined)
+    content = <NoProjects setProjectsState={setProjectsState} />;
+  else if (projectsState.selectedProjectId === null)
+    content = <NewProject setProjectsState={setProjectsState} />;
+  else
+    content = (
+      <NewTask
+        id={projectsState.selectedProjectId}
+        setProjectsState={setProjectsState}
+        projects={projectsState.projects}
+      />
+    );
 
   return (
     <main>
-      <Overview setView={setView} projects={projects} goForTask={goForTask} />
-      {view === "NoProjects" && (
-        <NoProjects key="NoProjects" setView={setView} />
-      )}
-      {view === "NewProject" && (
-        <NewProject
-          key="NewProject"
-          setProjects={setProjects}
-          setView={setView}
-        />
-      )}
-      {view === "NewTask" && (
-        <NewTask
-          key="NewTask"
-          id={activeId}
-          setProjects={setProjects}
-          setView={setView}
-          projects={projects}
-        />
-      )}
+      <Overview
+        projects={projectsState.projects}
+        setProjectsState={setProjectsState}
+      />
+      {content}
     </main>
   );
 }

@@ -1,7 +1,7 @@
 import Notebook from "../assets/no-projects.png";
 import Button from "./Button";
 
-export default function NoProjects({ setView }) {
+export default function NoProjects({ setProjectsState }) {
   return (
     <section className="ms-58 me-8 sm:ms-68 my-12 max-w-3xl w-2/3">
       <div className="flex flex-col items-center gap-4 pt-15">
@@ -13,7 +13,14 @@ export default function NoProjects({ setView }) {
           Select a project or get start with a new one
         </p>
 
-        <Button onClick={() => setView("NewProject")}>
+        <Button
+          onClick={() =>
+            setProjectsState((prev) => ({
+              ...prev,
+              selectedProjectId: null,
+            }))
+          }
+        >
           Create new project
         </Button>
       </div>

@@ -1,13 +1,13 @@
 import { useState } from "react";
 
-export default function NewTask({ id, setProjects, setView, projects }) {
+export default function NewTask({ id, setProjectsState, projects }) {
   const [task, setTask] = useState("");
   const projectIndex = projects.findIndex((project) => project.id === id);
 
   function deleteProject() {
-    setProjects((prev) => {
+    setProjectsState((prev) => {
       const updatedprojects = [
-        ...prev.map((obj) => ({
+        ...prev.projects.map((obj) => ({
           ...obj,
           tasks: [...obj.tasks],
         })),
@@ -16,33 +16,32 @@ export default function NewTask({ id, setProjects, setView, projects }) {
       updatedprojects.splice(projectIndex, 1);
       console.log(updatedprojects);
 
-      return updatedprojects;
+      return { selectedProjectId: undefined, projects: updatedprojects };
     });
-    setView("NoProjects");
   }
 
   function addTask() {
     if (task === "") alert("Task can not be empty");
     else {
-      setProjects((prev) => {
+      setProjectsState((prev) => {
         const updatedprojects = [
-          ...prev.map((obj) => ({
+          ...prev.projects.map((obj) => ({
             ...obj,
             tasks: [...obj.tasks],
           })),
         ];
         updatedprojects[projectIndex].tasks.push(task);
 
-        return updatedprojects;
+        return { ...prev, projects: updatedprojects };
       });
       setTask("");
     }
   }
 
   function deleteTask(ind) {
-    setProjects((prev) => {
+    setProjectsState((prev) => {
       const updatedprojects = [
-        ...prev.map((obj) => ({
+        ...prev.projects.map((obj) => ({
           ...obj,
           tasks: [...obj.tasks],
         })),
@@ -50,7 +49,7 @@ export default function NewTask({ id, setProjects, setView, projects }) {
       updatedprojects[projectIndex].tasks.splice(ind, 1);
       console.log(updatedprojects);
 
-      return updatedprojects;
+      return { ...prev, projects: updatedprojects };
     });
   }
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Input from "./Input";
 
-export default function NewProject({ setView, setProjects }) {
+export default function NewProject({ setProjectsState }) {
   const [newProject, setNewProject] = useState({
     title: "",
     description: "",
@@ -17,21 +17,23 @@ export default function NewProject({ setView, setProjects }) {
     if (newProject.title === "") alert("title is erquired");
     else if (newProject.duedate === "") alert("date is required");
     else {
-      setProjects((prev) => [
-        ...prev,
-        {
-          id: prev.length,
-          // title: title.current.value,
-          // description: description.current.value,
-          // duedate: duedate.current.value,
-          title: newProject.title,
-          description: newProject.description,
-          duedate: newProject.duedate,
-          tasks: [],
-        },
-      ]);
+      setProjectsState((prev) => ({
+        selectedProjectId: prev.projects.length,
+        projects: [
+          ...prev.projects,
+          {
+            id: prev.projects.length,
+            // title: title.current.value,
+            // description: description.current.value,
+            // duedate: duedate.current.value,
+            title: newProject.title,
+            description: newProject.description,
+            duedate: newProject.duedate,
+            tasks: [],
+          },
+        ],
+      }));
       setNewProject();
-      setView("NoProjects");
     }
   }
   return (
@@ -40,7 +42,12 @@ export default function NewProject({ setView, setProjects }) {
         <menu className="flex justify-end gap-4">
           <button
             className=" text-stone-800 hover:text-stone-950 rounded-lg py-2 px-4 cursor-pointer"
-            onClick={() => setView("NoProjects")}
+            onClick={() =>
+              setProjectsState((prev) => ({
+                selectedProjectId: undefined,
+                ...prev,
+              }))
+            }
           >
             Cancel
           </button>
