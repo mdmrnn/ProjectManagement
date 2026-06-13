@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import Notebook from "../assets/no-projects.png";
 import Button from "./Button";
+import { ProjectContext } from "../store/ProjectContext";
 
-export default function NoProjects({ setProjectsState }) {
+export default function NoProjects() {
+  const { setProjects } = useContext(ProjectContext);
+
   return (
     <section className="ms-58 me-8 sm:ms-68 my-12 max-w-3xl w-2/3">
       <div className="flex flex-col items-center gap-4 pt-15">
@@ -15,7 +19,7 @@ export default function NoProjects({ setProjectsState }) {
 
         <Button
           onClick={() =>
-            setProjectsState((prev) => ({
+            setProjects((prev) => ({
               ...prev,
               selectedProjectId: null,
             }))

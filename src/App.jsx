@@ -1,9 +1,9 @@
-import { useState } from "react";
 import Overview from "./Components/Overview";
 import NoProjects from "./Components/NoProjects";
 import NewProject from "./Components/NewProject";
 import NewTask from "./Components/NewTask";
-import { ProjectContext } from "./store";
+import { ProjectContext } from "./store/ProjectContext";
+import { useState } from "react";
 
 function App() {
   const [projectsState, setProjectsState] = useState({
@@ -20,25 +20,16 @@ function App() {
   });
 
   let content;
-  if (projectsState.selectedProjectId === undefined)
-    content = <NoProjects setProjectsState={setProjectsState} />;
-  else if (projectsState.selectedProjectId === null)
-    content = <NewProject setProjectsState={setProjectsState} />;
-  else
-    content = (
-      <NewTask
-        id={projectsState.selectedProjectId}
-        setProjectsState={setProjectsState}
-        projects={projectsState.projects}
-      />
-    );
+  if (projectsState.selectedProjectId === undefined) content = <NoProjects />;
+  else if (projectsState.selectedProjectId === null) content = <NewProject />;
+  else content = <NewTask />;
 
   return (
     <ProjectContext.Provider
       value={{
         id: projectsState.selectedProjectId,
         projects: projectsState.projects,
-        setProjectsState: setProjectsState,
+        setProjects: setProjectsState,
       }}
     >
       <Overview />

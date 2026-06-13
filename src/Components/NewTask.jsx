@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ProjectContext } from "../store/ProjectContext";
 
-export default function NewTask({ id, setProjectsState, projects }) {
+export default function NewTask() {
+  const { id, setProjects, projects } = useContext(ProjectContext);
+
   const [task, setTask] = useState("");
   const projectIndex = projects.findIndex((project) => project.id === id);
 
   function deleteProject() {
-    setProjectsState((prev) => {
+    setProjects((prev) => {
       const updatedprojects = [
         ...prev.projects.map((obj) => ({
           ...obj,
@@ -23,7 +26,7 @@ export default function NewTask({ id, setProjectsState, projects }) {
   function addTask() {
     if (task.trim() === "") return;
     else {
-      setProjectsState((prev) => {
+      setProjects((prev) => {
         const updatedprojects = [
           ...prev.projects.map((obj) => ({
             ...obj,
@@ -39,7 +42,7 @@ export default function NewTask({ id, setProjectsState, projects }) {
   }
 
   function deleteTask(ind) {
-    setProjectsState((prev) => {
+    setProjects((prev) => {
       const updatedprojects = [
         ...prev.projects.map((obj) => ({
           ...obj,

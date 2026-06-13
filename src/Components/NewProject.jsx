@@ -1,8 +1,11 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import Input from "./Input";
 import Modal from "./Modal";
+import { ProjectContext } from "../store/ProjectContext";
 
-export default function NewProject({ setProjectsState }) {
+export default function NewProject() {
+  const { setProjects } = useContext(ProjectContext);
+
   const [newProject, setNewProject] = useState({
     title: "",
     description: "",
@@ -28,7 +31,7 @@ export default function NewProject({ setProjectsState }) {
       );
       dialog.current.showModal();
     } else {
-      setProjectsState((prev) => ({
+      setProjects((prev) => ({
         selectedProjectId: undefined,
         projects: [
           ...prev.projects,
@@ -47,6 +50,7 @@ export default function NewProject({ setProjectsState }) {
       setNewProject();
     }
   }
+
   return (
     <section className="ms-58 me-8 sm:ms-68 my-12 max-w-3xl">
       <Modal dialog={dialog} btnCaption="Okay">
@@ -62,12 +66,14 @@ export default function NewProject({ setProjectsState }) {
         <menu className="flex justify-end gap-4">
           <button
             className=" text-stone-800 hover:text-stone-950 rounded-lg py-2 px-4 cursor-pointer"
-            onClick={() =>
-              setProjectsState((prev) => ({
-                selectedProjectId: undefined,
-                ...prev,
-              }))
-            }
+            onClick={() => {
+              return setProjects((prev) => {
+                return {
+                  ...prev,
+                  selectedProjectId: undefined,
+                };
+              });
+            }}
           >
             Cancel
           </button>
