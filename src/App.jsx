@@ -3,6 +3,7 @@ import Overview from "./Components/Overview";
 import NoProjects from "./Components/NoProjects";
 import NewProject from "./Components/NewProject";
 import NewTask from "./Components/NewTask";
+import { ProjectContext } from "./store";
 
 function App() {
   const [projectsState, setProjectsState] = useState({
@@ -33,13 +34,16 @@ function App() {
     );
 
   return (
-    <main>
-      <Overview
-        projectsState={projectsState}
-        setProjectsState={setProjectsState}
-      />
+    <ProjectContext.Provider
+      value={{
+        id: projectsState.selectedProjectId,
+        projects: projectsState.projects,
+        setProjectsState: setProjectsState,
+      }}
+    >
+      <Overview />
       {content}
-    </main>
+    </ProjectContext.Provider>
   );
 }
 

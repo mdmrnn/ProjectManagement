@@ -1,8 +1,10 @@
+import { ProjectContext } from "../store";
 import Button from "./Button";
+import { useContext } from "react";
 
-export default function Overview({ projectsState, setProjectsState }) {
-  const projects = projectsState.projects;
-  const id = projectsState.selectedProjectId;
+export default function Overview() {
+  const { projects, id, setProjectsState } = useContext(ProjectContext);
+
   return (
     <aside className="bg-stone-900 w-1/3 md:w-64 fixed top-12 rounded-r-xl h-screen px-8 py-16 tex-stone-50">
       <div className="flex flex-col items-start gap-9">
@@ -26,7 +28,6 @@ export default function Overview({ projectsState, setProjectsState }) {
                 ? "bg-stone-800 text-stone-100"
                 : "bg-stone-900 text-stone-300"
             }`;
-            console.log(classes);
             return (
               <li
                 key={index}
